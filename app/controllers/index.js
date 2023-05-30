@@ -8,7 +8,7 @@
 import Controller from '@ember/controller';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
-
+import { inject as service } from '@ember/service';
 export default class IndexController extends Controller {
   @tracked dataToShow = 'workspace';
   @tracked currentBound = 'oneWeek';
@@ -16,7 +16,13 @@ export default class IndexController extends Controller {
   // this changes when user changes the tab. initially starts at "mine"
   @tracked selectedData = this.data[0].details;
   @tracked activeDetailTab = 'Mine';
+  @service currentDate;
 
+  // Used to dynamically update the timestamp when pushing to prod, etc.
+  get currentDateValue() {
+    const currentDate = this.currentDate.getCurrentDate();
+    return currentDate.toLocaleDateString();
+  }
   dateBounds = {
     oneWeek: new Date(
       new Date().getFullYear(),

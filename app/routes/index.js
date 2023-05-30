@@ -37,6 +37,7 @@ export default class IndexRoute extends Route {
       page: 1,
       limit: 50,
     });
+
     const user = this.modelFor('application');
     //user.sections isn't reliable. have to query all sections
     const sections = await this.store.findAll('section');
@@ -101,6 +102,7 @@ export default class IndexRoute extends Route {
       'workspace',
       createdByCriteria
     );
+
     return hash({
       teacherSections: teacherAssignments.flat(),
       studentSections: studentAssignments.flat(),
